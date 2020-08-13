@@ -37,3 +37,29 @@ public:
 };
 
 /***迭代（这种基本都是使用stack或者queue）***/
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(root==NULL) return res;
+        stack<TreeNode*> wait;
+        wait.push(root);
+        while(!wait.empty())
+        {   
+            TreeNode* now=wait.top();
+            wait.pop();
+            if(now!=NULL)
+            {
+                res.push_back(now->val);
+            }
+            else
+            {
+                continue;
+            }
+            wait.push(now->right);
+            wait.push(now->left);
+        }
+        return res;
+    }
+};
