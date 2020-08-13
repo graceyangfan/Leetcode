@@ -37,7 +37,7 @@ public:
 };
 
 /***迭代（这种基本都是使用stack或者queue）***/
-
+/***stack最后进的最先处理，故left在right后入stack***/
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
