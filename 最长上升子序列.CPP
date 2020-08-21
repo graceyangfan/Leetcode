@@ -25,3 +25,19 @@ public:
         return dp[n-1];
     }
 };
+
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> minnums;
+        for(int v : nums)
+        {
+            if(!minnums.size() || v > minnums.back()) 
+                minnums.push_back(v);
+            else
+                *lower_bound(minnums.begin(), minnums.end(), v) = v;
+        }
+        return minnums.size();
+    }
+};
