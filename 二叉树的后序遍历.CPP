@@ -36,12 +36,45 @@ public:
 
 
 ## 分两种状态
-## (1)NULL 压栈只要不是叶子节点就处于压栈状态
-## 且永远先压左子树
-##注意！NULL的代码，其反序就是出栈顺序，左数访问完毕，右数访问完毕
-##此时就可以访问母节点
-##用nullptr作为地雷安放，压栈过程中不会触及
-##只要遇到叶子节点，压栈暂停，开始访问
+## 出压栈和把结果输入到res中,如果不考虑把结果输入到res中那么代码为：
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode *root) {
+        vector<int> res;
+        if (root == nullptr) {
+            return res;
+        }
+
+        stack<TreeNode *> stk;
+        stk.push(root);
+        while(!stk.empty())
+        {
+            TreeNode* p=stk.top();
+            stk.pop();
+            if(## in stack condition )
+            {
+                ## in stack 
+                stk.push(p);
+                if(p->right) stk.push(p->right);
+                if(p->left)  stk.push(p->left);
+            }
+            else( ## out stack condition)
+            {
+                ## out stack 
+            }
+        }
+        return res;
+    }
+};
+
+##现在考察什么情况下需要把结果输入到res中？？？
+##当然是当左右子树都被访问完了,此时的节点是需要输入到res中,但是二叉树并没有原生方法告诉我们限制左右子树已经访问完成
+##因此我们需要自己加入标签来说明，这里用一个nullptr 来说明即可
+                stk.push(p);
+                stk.push(nullptr);
+                if(p->right) stk.push(p->right);
+                if(p->left)  stk.push(p->left);
+##在入栈时就添加标签,一但左右子树访问完成(出栈必然和入栈反序），此时触发标签,进入out stack condition.
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode *root) {
@@ -73,3 +106,4 @@ public:
         return res;
     }
 };
+
